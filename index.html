@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>起号神器 — AI自动生成抖音昵称/头像/简介，30秒搞定起号</title>
+    <meta name="description" content="起号神器 qihao.lqint.cn — 免费AI工具，输入赛道和关键词，30秒自动生成抖音昵称、头像、个人简介。15个赛道覆盖，不用注册，打开即用。">
+    <meta name="keywords" content="起号神器,AI起名,抖音昵称生成,抖音头像,抖音简介,AI工具,免费起号">
+    <meta name="baidu-site-verification" content="codeva-5311244a26283e299f59aeb3ce4fa2d4">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg: #FFF8EC;
+            --red: #CC2936;
+            --gold: #D4A017;
+            --ink: #2C1810;
+            --gold-light: #F5E6C8;
+            --shadow: rgba(44, 24, 16, 0.08);
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* Decorative background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                radial-gradient(ellipse at 20% 50%, rgba(212, 160, 23, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(204, 41, 54, 0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(212, 160, 23, 0.04) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Header */
+        header {
+            padding: 32px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 28px;
+            color: var(--red);
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+        
+        .logo span {
+            color: var(--ink);
+        }
+        
+        .header-link {
+            color: var(--ink);
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 20px;
+            border: 1px solid var(--gold);
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .header-link:hover {
+            background: var(--red);
+            color: #fff;
+            border-color: var(--red);
+        }
+        
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 60px 0 40px;
+        }
+        
+        .hero h1 {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 64px;
+            color: var(--red);
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: 4px;
+        }
+        
+        .hero .subtitle {
+            font-size: 20px;
+            color: var(--ink);
+            opacity: 0.7;
+            margin-bottom: 12px;
+            font-weight: 300;
+        }
+        
+        .hero .domain {
+            font-size: 24px;
+            color: var(--gold);
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+        }
+        
+        .hero .tagline {
+            font-size: 15px;
+            color: var(--ink);
+            opacity: 0.6;
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        
+        /* Features */
+        .features {
+            padding: 40px 0;
+        }
+        
+        .features h2 {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 36px;
+            color: var(--ink);
+            text-align: center;
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid var(--gold-light);
+            border-radius: 12px;
+            padding: 28px 24px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px var(--shadow);
+            border-color: var(--gold);
+        }
+        
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 16px;
+            background: var(--red);
+            color: #fff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+        
+        .feature-card h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: var(--ink);
+        }
+        
+        .feature-card p {
+            font-size: 13px;
+            color: var(--ink);
+            opacity: 0.6;
+            line-height: 1.6;
+        }
+        
+        /* How it works */
+        .steps {
+            padding: 40px 0;
+        }
+        
+        .steps h2 {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 36px;
+            color: var(--ink);
+            text-align: center;
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+        }
+        
+        .step-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 40px;
+            margin-bottom: 24px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
+            border: 1px solid var(--gold-light);
+        }
+        
+        .step-num {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 40px;
+            color: var(--gold);
+            flex-shrink: 0;
+            width: 60px;
+            text-align: center;
+            line-height: 1;
+        }
+        
+        .step-content h3 {
+            font-size: 18px;
+            margin-bottom: 6px;
+            color: var(--ink);
+        }
+        
+        .step-content p {
+            font-size: 14px;
+            color: var(--ink);
+            opacity: 0.65;
+            line-height: 1.6;
+        }
+        
+        /* Channels */
+        .channels {
+            padding: 40px 0;
+        }
+        
+        .channels h2 {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 36px;
+            color: var(--ink);
+            text-align: center;
+            margin-bottom: 24px;
+            letter-spacing: 2px;
+        }
+        
+        .channel-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 0 auto;
+            max-width: 700px;
+        }
+        
+        .channel-tag {
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid var(--gold-light);
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--ink);
+        }
+        
+        .channel-tag:hover {
+            border-color: var(--red);
+            color: var(--red);
+        }
+        
+        /* CTA */
+        .cta {
+            text-align: center;
+            padding: 60px 0;
+        }
+        
+        .cta h2 {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 42px;
+            color: var(--red);
+            margin-bottom: 16px;
+            letter-spacing: 3px;
+        }
+        
+        .cta p {
+            font-size: 15px;
+            color: var(--ink);
+            opacity: 0.6;
+            margin-bottom: 32px;
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 48px;
+            background: var(--red);
+            color: #fff;
+            font-size: 18px;
+            font-family: 'Ma Shan Zheng', cursive;
+            letter-spacing: 2px;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 16px rgba(204, 41, 54, 0.2);
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(204, 41, 54, 0.3);
+        }
+        
+        .cta .note {
+            margin-top: 12px;
+            font-size: 13px;
+            color: var(--ink);
+            opacity: 0.4;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 32px 0;
+            border-top: 1px solid var(--gold-light);
+            font-size: 13px;
+            color: var(--ink);
+            opacity: 0.4;
+        }
+        
+        footer a {
+            color: var(--red);
+            text-decoration: none;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 42px; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .step-row { flex-direction: column; gap: 12px; }
+            .step-num { font-size: 32px; text-align: left; }
+            .hero .domain { font-size: 18px; }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 32px; }
+            .hero .subtitle { font-size: 16px; }
+            .cta-btn { padding: 12px 32px; font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="/" class="logo">起号<span>神器</span></a>
+            <a href="https://qihao.lqint.cn" class="header-link">开始使用 →</a>
+        </header>
+        
+        <section class="hero">
+            <h1>起号神器</h1>
+            <p class="subtitle">AI 自动生成抖音昵称 · 头像 · 简介</p>
+            <p class="domain">qihao.lqint.cn</p>
+            <p class="tagline">
+                输入你的赛道和关键词，30 秒出结果<br>
+                不用注册、不花钱，打开就用
+            </p>
+        </section>
+        
+        <section class="features">
+            <h2>核心功能</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🖊</div>
+                    <h3>AI 昵称生成</h3>
+                    <p>输入行业关键词，一次生成 3 个优质昵称，选一个最合适的</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>AI 头像制作</h3>
+                    <p>根据你的赛道风格，自动生成个性化头像</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3>AI 简介编写</h3>
+                    <p>3 版不同风格的简介，覆盖不同人设需求</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎥</div>
+                    <h3>视频模板</h3>
+                    <p>选择视频模板，付费生成带货/种草类视频</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎙</div>
+                    <h3>多音色配音</h3>
+                    <p>温柔女、活泼女、沉稳男等 5 种配音音色可选</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>极速体验</h3>
+                    <p>24小时缓存命中，即点即用，无需等待</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="steps">
+            <h2>三步搞定起号</h2>
+            <div class="step-row">
+                <div class="step-num">壹</div>
+                <div class="step-content">
+                    <h3>选择赛道</h3>
+                    <p>美食、知识、探店、家居、数码、宠物…… 15 个赛道任选，匹配你的账号定位</p>
+                </div>
+            </div>
+            <div class="step-row">
+                <div class="step-num">贰</div>
+                <div class="step-content">
+                    <h3>输入关键词</h3>
+                    <p>输入 3-5 个描述你账号风格的词，比如：省钱、实测、新手</p>
+                </div>
+            </div>
+            <div class="step-row">
+                <div class="step-num">叁</div>
+                <div class="step-content">
+                    <h3>30 秒出结果</h3>
+                    <p>AI 自动生成 3 个昵称、1 个头像、3 版简介，不满意随时重新生成</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="channels">
+            <h2>覆盖赛道</h2>
+            <div class="channel-tags">
+                <span class="channel-tag">🍜 美食</span>
+                <span class="channel-tag">📚 知识</span>
+                <span class="channel-tag">📍 探店</span>
+                <span class="channel-tag">🏠 家居</span>
+                <span class="channel-tag">💻 数码</span>
+                <span class="channel-tag">🐱 宠物</span>
+                <span class="channel-tag">💄 美妆</span>
+                <span class="channel-tag">😂 搞笑</span>
+                <span class="channel-tag">👶 母婴</span>
+                <span class="channel-tag">💪 健身</span>
+                <span class="channel-tag">💼 职场</span>
+                <span class="channel-tag">❤️ 情感</span>
+                <span class="channel-tag">✈️ 旅行</span>
+                <span class="channel-tag">💰 财经</span>
+                <span class="channel-tag">🚗 汽车</span>
+            </div>
+        </section>
+        
+        <section class="cta">
+            <h2>免费起号，马上开始</h2>
+            <p>不用注册·不用下载·打开即用</p>
+            <a href="https://qihao.lqint.cn" class="cta-btn">开始制作 →</a>
+            <p class="note">免费生成昵称 / 头像 / 简介 · 视频按条购买</p>
+        </section>
+        
+        <footer>
+            <p>© 2024 上海量全智能科技有限公司 · <a href="https://beian.miitps://beian.miit.gov.cn/">沪ICP备2024084917号</a></p>
+        </footer>
+    </div>
+</body>
+</html>
